@@ -11,6 +11,8 @@ ostream& operator <<(ostream& out, const Order& order)
         out << " " << order.toppings[i];
     }
     out << "price: " << order.price << endl;
+    
+    return out;
 }
 
 
