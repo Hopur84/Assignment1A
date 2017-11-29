@@ -1,9 +1,62 @@
 #include "Order.h"
 
 
+
+ostream& operator <<(ostream& out, const Order& order)
+{
+    out << "Customer: " << order.customer << endl;
+    out << "Crust: " << order.crust << endl << "Toppings:";
+    for(int i = 0; i < 10; i++)
+    {
+        out << " " << order.toppings[i];
+    }
+    out << "price: " << order.price << endl;
+}
+
+
+Order::Order()
+{
+    crust = "Classic";
+    price = 1000;
+    Size = 1;
+}
+
+void Order::set_size()
+{
+    int input;
+    bool stop = false;
+
+    while(stop == false)
+    {
+        cout << "0. Cancel" << endl << "1. Large" << endl << "2. mid" << endl << "3. small" << endl;
+        cin >> input;
+        switch(input)
+    {
+        case 0:
+            stop = true;
+            break;
+        case 1:
+            Size = 2;
+            stop = true;
+            break;
+        case 2:
+            Size = 1;
+            stop = true;
+            break;
+        case 3:
+            Size = 0.5;
+            stop = true;
+        default:
+
+            break;
+        }
+    }
+}
+
 void Order::customer_order()
 {
-    cout << "Customer name:"; cin >> customer;
+    cout << "Customer name: ";
+    cin >> customer;
 }
 
 void Order::pick_crust()
@@ -14,7 +67,7 @@ void Order::pick_crust()
     string str;
 
     int input = 0;
-
+    cout << "0. Cancel" << endl;
     for(int i = 0; i<4; i++)
     {
         getline(fin, str);
@@ -24,8 +77,12 @@ void Order::pick_crust()
     cout << endl;
 
     cin >> input;
-    crust = topping_list[input-1];
 
+    if(input !=0)
+    {
+    crust = topping_list[input-1];
+    }
+    else{}
     fin.close();
 
 }
@@ -40,7 +97,9 @@ void Order::pick_topping()
 
     while(stop == false)
     {
-        cout << "press 'Q' to go back" << endl << endl << "1.Meats" << endl << "2.Greens" << endl << "3.cheeses" << endl << "4.sauces and spices" << endl;
+        cout << "press '0' to go back" << endl << endl << "1.Meats: " << 150*Size << "kr"
+             << endl << "2.Greens: " << 100*Size << "Kr" << endl << "3.cheeses: " << 200*Size << "kr"
+             << endl << "4.sauces and spices: " << 120*Size << "kr" << endl;
         cin >> input;
         switch(input)
         {
@@ -48,7 +107,7 @@ void Order::pick_topping()
             fin.open("meats.txt", ios::app);
             if(fin.is_open())
             {
-                cout << "press 'Q' to go back" << endl;
+                cout << "0. Cancel" << endl;
                 for(int i = 0; i < 7; i++)
                 {
                     if(!fin.eof())
@@ -61,9 +120,13 @@ void Order::pick_topping()
                 }
                 cout << endl;
                 cin >> input;
-                if(input == 113)
+                if(input == 0)
                 {
                     pick_topping();
+                }
+                else
+                {
+                    price+= 150*Size;
                 }
                 toppings[number] = topping_list[input-1];
             }
@@ -73,7 +136,7 @@ void Order::pick_topping()
             fin.open("greens.txt", ios::app);
             if(fin.is_open())
             {
-                cout << "press 'Q' to go back" << endl;
+                cout << "0. Cancel" << endl;
                 for(int i = 0; i < 7; i++)
                 {
                     if(!fin.eof())
@@ -86,9 +149,13 @@ void Order::pick_topping()
                 }
                 cout << endl;
                 cin >> input;
-                if(input == 113)
+                if(input == 0)
                 {
                     pick_topping();
+                }
+                else
+                {
+                    price+=100*Size;
                 }
                 toppings[number] = topping_list[input-1];
             }
@@ -98,7 +165,7 @@ void Order::pick_topping()
             fin.open("cheeses.txt", ios::app);
             if(fin.is_open())
             {
-                cout << "press 'Q' to go back" << endl;
+                cout << "0. Cancel" << endl;
                 for(int i = 0; i < 4; i++)
                 {
                     if(!fin.eof())
@@ -113,9 +180,13 @@ void Order::pick_topping()
 
                 cin >> input;
 
-                if(input == 113)
+                if(input == 0)
                 {
                     pick_topping();
+                }
+                else
+                {
+                    price+=200*Size;
                 }
                 toppings[number] = topping_list[input-1];
             }
@@ -125,7 +196,7 @@ void Order::pick_topping()
             fin.open("sauces_&_spices.txt", ios::app);
             if(fin.is_open())
             {
-                cout << "press 'Q' to go back" << endl;
+                cout << "0. Cancel" << endl;
                 for(int i = 0; i < 7; i++)
                 {
                     if(!fin.eof())
@@ -138,19 +209,22 @@ void Order::pick_topping()
                 }
                 cout << endl;
                 cin >> input;
-                if(input == 113)
+                if(input == 0)
                 {
                     pick_topping();
+                }
+                else
+                {
+                    price+=120*Size;
                 }
                 toppings[number] = topping_list[input-1];
             }
             fin.close();
             break;
-        case 113 :
+        case 0 :
             stop = true;
             break;
         default:
-            cout << "error";
             break;
         }
         number++;
@@ -158,12 +232,14 @@ void Order::pick_topping()
 }
 
 
-void Order::current_order()
+void Order::send_order()
 {
+    fstream fout;
     cout << endl << endl << endl << "Crust: " << crust << endl << "Toppings:";
     for(int i = 0; i < 10; i++)
     {
         cout << " " << toppings[i];
     }
-    cout << endl << "Price: ";
+    cout << endl << "Price: " << price;
+
 }

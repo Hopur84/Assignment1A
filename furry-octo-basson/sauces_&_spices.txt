@@ -1,11 +1,12 @@
-nachos chips
-extra sauce
-fresh garlic
-black pepper
-oregano
-chili flakes
-garlic and parmeson oil(for crust)
-BBQ sauce
-chili-bearnaise
-BBQ topping
-hot sauce
+nachos chips,
+sauce,
+extra sauce,
+fresh garlic,
+black pepper,
+oregano,
+chili flakes,
+garlic and parmeson oil(for crust),
+BBQ sauce,
+chili-bearnaise,
+BBQ topping,
+hot sauce,

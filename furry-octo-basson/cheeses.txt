@@ -1,5 +1,5 @@
-fresh mozzarella
-pepper cheese
-cream cheese
-cheddar cheese
-extra cheese
+fresh mozzarella,
+pepper cheese,
+cream cheese,
+cheddar cheese,
+extra cheese,

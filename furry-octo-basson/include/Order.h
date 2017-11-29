@@ -8,10 +8,14 @@ class Order
 {
     public:
 
+        Order();
         void pick_topping();
-        void current_order();
+        void send_order();
         void pick_crust();
         void customer_order();
+        friend ostream& operator <<(ostream& out, const Order& order);
+        void set_size();
+
 
 
 
@@ -19,11 +23,14 @@ class Order
     protected:
 
     private:
+        double Size;
+        string location;
         string customer;
         string crust;
         string topping_list[10];
         string toppings[10];
         int price;
+
 };
 
 #endif // ORDER_H
